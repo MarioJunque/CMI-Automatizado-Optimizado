@@ -9,7 +9,7 @@ import unittest
 class TestCargaDatos(unittest.TestCase):
     
     def test_cargaCSV(self):
-        data_path= "../../dataset/atp_matches_1997.csv"
+        data_path= "../../dataset/data_sample_ventas.csv"
         df = Load(data_path)
         self.assertFalse(0,df.head(1).isEmpty)
 

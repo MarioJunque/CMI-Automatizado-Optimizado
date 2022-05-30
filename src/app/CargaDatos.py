@@ -5,7 +5,7 @@ import pandas as pd
 class CargaCSV:
     def __init__(self,csv_path):
         self.path = csv_path
-        df=pd.read_csv(self.path)   
+        df=pd.read_csv(self.path, encoding='latin1')   
         return df
 
 class CargaXSLX:
