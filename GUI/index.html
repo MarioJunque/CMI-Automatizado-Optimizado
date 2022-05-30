@@ -10,19 +10,23 @@
             <h1 style="text-align: left-center; position: left;">
                 CMI-APP
             </h1>
-            <form action="/login" method="POST">
-                <p>Cargar archivo</p>
-                <p>Consultar datos</p>
-                <p>Consultar cuadro de mando integral</p>
-                <p>Salir de la aplicación</p>
-                <div class="inputbox">
-                <input type="" placeholder="Introduce tu usuario" name="usuario">
+                <div class="submitbutton">
+                    <a href="/Carga.html">Cargar archivo</a>
+                    <br>
                 </div>
-                <div class="inputbox">
-                <input type="password" placeholder="Introduce tu contraseña" name="password">
+                <div class="submitbutton">
+                    <a href="/ConsultaDatos.html">Consultar datos</a>
+                    <br>
                 </div>
-                <input class="submitbutton" type="submit" value="Entrar">
-              </form>
+                <div class="submitbutton">
+                    <a href="/ConsultaCMI.html">Consultar CMI</a>
+                    <br>
+                </div>
+                <div class="exit">
+                    <form  action="/Salir.html" method="POST">
+                        <input type="submit" value="Salir">
+                    </form>
+                </div>
           </div>
     </body>
 </html>
