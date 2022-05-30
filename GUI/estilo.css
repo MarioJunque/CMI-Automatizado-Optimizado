@@ -4,7 +4,7 @@
 body{
 	margin: 0;
 	padding: 0;
-	background: url(FondoEasyRave.jpg) no-repeat center;
+	background: url(FondoCMI.jpg) no-repeat center;
 	min-height: 100vh;
     background-size: cover;
     display: flex;
@@ -15,12 +15,12 @@ body{
 .boxlog{
 	width: calc(20% - 30px);
 	position: absolute;
-	background: url(logo.png) no-repeat top center;
+	background: no-repeat top center;
 	background-size: 40%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	background-color: rgba(36, 7, 12, 0.973);
+	background-color: rgba(4, 24, 66, 0.973);
 	max-width: 500px;
 	padding: 50px 70px;
 
@@ -28,7 +28,7 @@ body{
 
 .boxlog h1{
 	font-size: 35px;
-	border-bottom: 6px solid  rgb(78, 14, 131);
+	border-bottom: 6px solid  rgb(27, 18, 93);
 	margin-bottom: 15px;
 	padding: 30px 0;
 	padding-left: 2.5cm;

@@ -4,7 +4,8 @@ import pandas as pd
 
 class CargaCSV:
     def __init__(self,csv_path):
-        df=pd.read_csv(csv_path)   
+        self.path = csv_path
+        df=pd.read_csv(self.path)   
         return df
 
 class CargaXSLX:
