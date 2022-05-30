@@ -6,11 +6,11 @@ import pandas as pd
 import unittest
 
 
-class TestCargaDatos(unittest.TestCase):
+class TestCargaData(unittest.TestCase):
     
     def test_cargaCSV(self):
         data_path= "../../dataset/data_sample_ventas.csv"
-        df = Load(data_path)
+        df = Load(data_path).crearDataframe()
         self.assertFalse(0,df.head(1).isEmpty)
 
     #def test_cargaXSLX(self):

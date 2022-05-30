@@ -3,9 +3,11 @@ import pandas as pd
 
 
 class CargaCSV:
-    def __init__(self,csv_path):
-        self.path = csv_path
-        df=pd.read_csv(self.path, encoding='latin1')   
+    def __init__(self,csv):
+        self.csv = csv
+
+    def crearDataframe(self):
+        df=pd.read_csv(self.csv, encoding='iso-8859-1')   
         return df
 
 class CargaXSLX:
