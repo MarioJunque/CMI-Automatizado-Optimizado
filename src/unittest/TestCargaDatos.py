@@ -11,7 +11,7 @@ class TestCargaData(unittest.TestCase):
     def test_cargaCSV(self):
         data_path= "../../dataset/data_sample_ventas.csv"
         df = Load(data_path).crearDataframe()
-        self.assertFalse(0,df.head(1).isEmpty)
+        self.assertFalse(0,df.empty)
 
     #def test_cargaXSLX(self):
     #    data_path= "../../dataset/superstore_sales.xlsx"
