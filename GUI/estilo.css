@@ -54,7 +54,7 @@ a {
 
 .submitbutton{
 	width: 100%;
-	background: none;
+	background: rgba(40, 31, 31, 0.418);
     border: 2px solid rgb(8, 5, 92);
     color: rgb(15, 26, 78);
     padding: 5px ;
@@ -66,17 +66,12 @@ a {
 
  input {
 	width: 100%;
-	background: none;
-    border: 2px solid rgb(13, 12, 36);
+	background: rgba(40, 31, 31, 0.418);
+    border: 2px solid rgb(8, 5, 92);
     color: #e4e6ed;
-    padding: 5px ;
+    padding: 5px 12px;
     text-align: center;
-    margin: 10px 0;
-}
-.register a{
-	font-size: 15px;
-	margin-bottom: 15px;
-	padding: 15px 0;
-    color: rgba(211, 211, 211, 0.226);
-    font-family: "Calibri";
+    margin: 4px 0;
+	font-family: Arial;
+	font-size: 16px;
 }
