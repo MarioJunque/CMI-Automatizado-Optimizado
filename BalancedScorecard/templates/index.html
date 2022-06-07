@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- 
+{% load static %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,15 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="estilo.css">
+    
+    <link rel="stylesheet" href="{%static 'estilo.css' %}">
     
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
-    <!----===== Events Javascript ===== -->
-    <script src="events.js"></script>
     
     <!--<title>Dashboard Sidebar Menu</title>--> 
+    <title>
+          
+        {% block title  %} {% endblock %}
+
+    </title>
 </head>
 <body>
     <nav class="sidebar close">
@@ -57,9 +61,9 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Notifications</span>
+                        <a href="https://github.com/MarioJunque/CMI-Automatizado-Optimizado">
+                            <i class='bx bxl-github icon' ></i>
+                            <span class="text nav-text">Repositorio<br>del proyecto</span>
                         </a>
                     </li>
 

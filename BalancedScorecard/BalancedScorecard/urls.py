@@ -20,5 +20,5 @@ from BalancedScorecard.views import Inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Inicio),
+    path('inicio/', Inicio),
 ]
