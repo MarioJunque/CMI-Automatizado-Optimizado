@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-STATICFILES_DIRS = ["C:/Users/mario/OneDrive/Documentos/CMI-Automatizado-Optimizado/BalancedScorecard/BalancedScorecard/templates/static"]
+STATICFILES_DIRS = [STATIC_DIR, ]
 
 
 # Application definition

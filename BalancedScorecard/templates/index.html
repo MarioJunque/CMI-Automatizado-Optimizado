@@ -84,7 +84,7 @@
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-upload bx-flip-horizontal bx-tada icon' ></i>
-                            <span class="text nav-text">Subir archivo</span>
+                            <span class="text nav-text">Subir dataset</span>
                         </a>
                     </li>
 
@@ -117,7 +117,13 @@
     </nav>
 
     <section class="home">
-        <div class="text">Pantalla de inicio</div>
+        <div class="text">
+            
+            {% block content %}
+        
+            {% endblock %}
+
+        </div>
     </section>
 
     <script>
