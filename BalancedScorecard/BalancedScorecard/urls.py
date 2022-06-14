@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from BalancedScorecard.views import Inicio,CargaDataset
+from BalancedScorecard.views import Inicio,CargaDataset, DescargaDataset, Estadisticas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/', Inicio),
-    path('inicio/carga/', CargaDataset),
+    path('', Inicio),
+    path('carga', CargaDataset),
+    path('descarga', DescargaDataset),
+    path('estadisticas', Estadisticas),
 ]

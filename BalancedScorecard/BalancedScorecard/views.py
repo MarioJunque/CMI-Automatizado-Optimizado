@@ -9,3 +9,14 @@ def Inicio(request):
 def CargaDataset(request):
 
     return render(request,"carga.html")
+
+def DescargaDataset(request):
+
+    return render(request,"carga.html")
+
+def Estadisticas(request):
+
+    return render(request,"carga.html")
+
+
+    

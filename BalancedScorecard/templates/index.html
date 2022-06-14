@@ -8,7 +8,8 @@
     
     <!----======== CSS ======== -->
     
-    <link rel="stylesheet" href="{%static 'estilo.css' %}">
+    <link rel="stylesheet" href="{%static 'estiloIndex.css' %}">
+    
     
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -47,14 +48,14 @@
 
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#">
+                        <a href=" ">
                             <i class='bx bx-home-alt icon' ></i>
                             <span class="text nav-text">Inicio</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="estadisticas">
                             <i class='bx bx-bar-chart-alt-2 icon' ></i>
                             <span class="text nav-text">Estadísticas <br>del modelo</span>
                         </a>
@@ -75,14 +76,14 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="descarga">
                             <i class='bx bx-download icon'></i>
                             <span class="text nav-text">Descargar <br>optimización</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="carga">
                             <i class='bx bx-upload bx-flip-horizontal bx-tada icon' ></i>
                             <span class="text nav-text">Subir dataset</span>
                         </a>
@@ -127,33 +128,33 @@
     </section>
 
     <script>
-        const body = document.querySelector('body'),
-      sidebar = body.querySelector('nav'),
-      toggle = body.querySelector(".toggle"),
-      searchBtn = body.querySelector(".search-box"),
-      modeSwitch = body.querySelector(".toggle-switch"),
-      modeText = body.querySelector(".mode-text");
+          const body = document.querySelector('body'),
+  sidebar = body.querySelector('nav'),
+  toggle = body.querySelector(".toggle"),
+  searchBtn = body.querySelector(".search-box"),
+  modeSwitch = body.querySelector(".toggle-switch"),
+  modeText = body.querySelector(".mode-text");
 
 
 toggle.addEventListener("click" , () =>{
-    sidebar.classList.toggle("close");
+sidebar.classList.toggle("close");
 })
 
 searchBtn.addEventListener("click" , () =>{
-    sidebar.classList.remove("close");
+sidebar.classList.remove("close");
 })
 
 modeSwitch.addEventListener("click" , () =>{
-    body.classList.toggle("dark");
+body.classList.toggle("dark");
+
+if(body.classList.contains("dark")){
+    modeText.innerText = "Light mode";
+}else{
+    modeText.innerText = "Dark mode";
     
-    if(body.classList.contains("dark")){
-        modeText.innerText = "Light mode";
-    }else{
-        modeText.innerText = "Dark mode";
-        
-    }
+}
 });
     </script>
-
+    
 </body>
 </html>
