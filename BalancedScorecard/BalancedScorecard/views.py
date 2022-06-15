@@ -12,11 +12,11 @@ def CargaDataset(request):
 
 def DescargaDataset(request):
 
-    return render(request,"carga.html")
+    return render(request,"descarga.html")
 
 def Estadisticas(request):
 
-    return render(request,"carga.html")
+    return render(request,"estadisticas.html")
 
 
     
