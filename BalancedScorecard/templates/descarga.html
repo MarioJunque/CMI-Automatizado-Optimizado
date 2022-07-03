@@ -101,14 +101,14 @@
 
     button.addEventListener("click", ()=>{
       button.classList.add("progress");
-      text.innerText = "Uploading...";
+      text.innerText = "Downloading...";
 
       setTimeout(()=>{
        button.classList.remove("progress"); //remove progress after 6s
-       text.innerText = "Uploaded";
+       text.innerText = "Downloaded";
       },6000); //1000ms = 1s (6000 = 6s)
 
     });
 </script>  
- 
+</body>
   {% endblock %}
