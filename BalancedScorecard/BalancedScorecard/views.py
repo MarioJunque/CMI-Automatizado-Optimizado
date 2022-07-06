@@ -26,7 +26,7 @@ def PlantillaPowerBi(request):
 
 def CerrarPrograma(request):
 
-    return HttpResponse("Cerrando el programa ...",sys.exit())    # Aqui hay que implementar un método para cerrar con un wait o algo parecido
+    return HttpResponse("Cerrando el programa ...",sys.exit(0))    # Aqui hay que implementar un método para cerrar con un wait o algo parecido
 
 def OptimizarDataset(request):
 
