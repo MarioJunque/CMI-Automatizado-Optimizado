@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render 
 from src.app.PowerBiEvents import llamadaBI
+import src.app.OptimizationProcess as ML
 import sys
 
 
@@ -11,6 +12,15 @@ def Inicio(request):
 def CargaDataset(request):
 
     return render(request,"carga.html")
+
+def CargaCompletada(request):
+
+    # Falta recibir archivo como argumento
+
+    ML.Optimizar()
+
+    return render(request,"cargaCompleta.html")
+
 
 def DescargaDataset(request):
 

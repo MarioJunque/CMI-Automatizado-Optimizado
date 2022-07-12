@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from BalancedScorecard.views import Inicio,CargaDataset, DescargaDataset, Estadisticas, PlantillaPowerBi, CerrarPrograma, OptimizarDataset
+from BalancedScorecard.views import Inicio,CargaDataset, DescargaDataset, Estadisticas, PlantillaPowerBi, CerrarPrograma, OptimizarDataset, CargaCompletada
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('creacionPanel',PlantillaPowerBi),
     path('salir', CerrarPrograma),
     path('optimizacion', OptimizarDataset),
+    path('cargaCompleta', CargaCompletada),
 ]
