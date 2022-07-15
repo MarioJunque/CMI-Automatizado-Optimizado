@@ -19,8 +19,9 @@ def Evaluar(modelo):
      
 
 def Optimizar(df):
-    datos = PrepararDatos(df)
-    modelo = Entrenar(datos)
+    # datos = PrepararDatos(df)
+    modelo = Entrenar(df)
+    return modelo
 
 
 def ModelConverter(modelo):

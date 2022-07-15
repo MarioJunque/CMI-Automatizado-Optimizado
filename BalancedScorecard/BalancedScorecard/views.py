@@ -1,6 +1,7 @@
+from asyncio.windows_events import NULL
 from django.http import HttpResponse
 from django.shortcuts import render 
-from src.app.PowerBiEvents import llamadaBI
+import report.gestionCuadroMando as Dashboard 
 import src.app.OptimizationProcess as ML
 import sys
 
@@ -14,12 +15,14 @@ def CargaDataset(request):
     return render(request,"carga.html")
 
 def CargaCompletada(request):
+    if request.FILES["files"]:
+        opt = ML.Optimizar(request.FILES["files"])
+        if opt == NULL:
+            mensaje = "Cargado con exito, ya puede acceder a todas las funciones"
+        else:
+            mensaje = "Archivo no valido, revise su contenido"
 
-    # Falta recibir archivo como argumento
-
-    ML.Optimizar()
-
-    return render(request,"cargaCompleta.html")
+    return render(request,"cargaCompleta.html",{"msg":mensaje})
 
 
 def DescargaDataset(request):
@@ -32,7 +35,7 @@ def Estadisticas(request):
 
 def PlantillaPowerBi(request):
 
-    return HttpResponse(llamadaBI())    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
+    return HttpResponse(Dashboard.VisualizarCuadroMando())    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
 
 def CerrarPrograma(request):
 

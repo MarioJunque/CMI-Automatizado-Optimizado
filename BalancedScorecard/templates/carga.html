@@ -8,7 +8,7 @@
   <form method="post" action="/cargaCompleta"></form>
     <label>Introduce aqui tu archivo</label>
       <div class="inputfile">
-        <input type="file" id="files" name="files" accept=".csv" required/>
+        <input type="file" id="files" name="files" accept=".csv, .xlsx, .json" enctype="multipart/form-data" required/>
       </div>
       <output></output>
       <input type="submit" value="Subir">
