@@ -16,9 +16,12 @@ def CargaDataset(request):
 
 def CargaCompletada(request):
     if request.FILES["files"]:
+        cond = True
+        while(cond):
+            cond = Dashboard.CrearCuadroMando(request.FILES["files"])
         opt = ML.Optimizar(request.FILES["files"])
         if opt == NULL:
-            mensaje = "Cargado con exito, ya puede acceder a todas las funciones"
+            mensaje = "Cargado con exito, ya puede crear la plantilla del cuadro de mando"
         else:
             mensaje = "Archivo no valido, revise su contenido"
 

@@ -1,9 +1,16 @@
-import numpy as np
+
 import pandas as pd
 import DataWrangling, Training, Evaluate
 
+def convertirDataframe(dataset, format):
+    if format == 'csv':
+        archivo = pd.read_csv(dataset, encoding='Latin-1')
+    elif format == 'xlsx':
+        archivo = pd.read_excel(dataset, sheet_name=None)
+    return archivo
 
-def PrepararDatos(df):
+def PrepararDatos(dataset,format):
+    df = convertirDataframe(dataset,format)
     datos = DataWrangling.Limpieza(df)
     return datos
 
@@ -14,8 +21,8 @@ def Entrenar(datos):
 
 
 def Evaluar(modelo):
-     prediccion, mediaCV, m , n, recall, precision = Evaluate.evaluacion(modelo)
-     return prediccion, mediaCV, m, n, recall, precision
+     mse,rmse,r2 = Evaluate.evaluacion(modelo)
+     return mse,rmse,r2
      
 
 def Optimizar(df):
@@ -25,5 +32,8 @@ def Optimizar(df):
 
 
 def ModelConverter(modelo):
-    archivo = modelo.to_csv('optimizacion.csv')
+    if format == 'csv':
+        archivo = modelo.to_csv('optimizacion.csv')
+    elif format == 'xlsx':
+        archivo = modelo.to_excel('optimizacion.xslx')
     return archivo
