@@ -1,4 +1,3 @@
-from pyexpat import model
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, SGDRegressor, ElasticNet
 
@@ -13,14 +12,14 @@ def TrainModelCV (X,Y):
 
 
 def LinRegression(x_train,y_train):
-    model = LinearRegression.fit(x_train,y_train)
-    return model 
+    modelo = LinearRegression().fit(x_train,y_train)
+    return modelo 
 
 
 def SGD_Reg(x_train,y_train):
-    model = SGDRegressor.fit(x_train,y_train)
-    return model 
+    modelo = SGDRegressor().fit(x_train,y_train)
+    return modelo 
 
 def Elastic(x_train,y_train):
-    model = ElasticNet.fit(x_train,y_train)
-    return model 
+    modelo = ElasticNet().fit(x_train,y_train)
+    return modelo 

@@ -1,6 +1,7 @@
-
+from src.app import DataWrangling
+from src.app import Evaluate
+from src.app import Training
 import pandas as pd
-import DataWrangling, Training, Evaluate
 
 def convertirDataframe(dataset, format):
     if format == 'csv':
