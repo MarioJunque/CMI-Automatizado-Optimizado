@@ -38,7 +38,11 @@ def Estadisticas(request):
 
 def PlantillaPowerBi(request):
 
-    return HttpResponse(Dashboard.VisualizarCuadroMando())    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
+    return HttpResponse(Dashboard.CrearCuadroMando())    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
+
+def ConsultarDashboard(request):
+
+    return HttpResponse(Dashboard.VisualizarCuadroMando())  # Consulta dashboard optimizado 
 
 def CerrarPrograma(request):
 
