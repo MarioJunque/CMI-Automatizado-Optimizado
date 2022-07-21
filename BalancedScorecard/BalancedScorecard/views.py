@@ -1,9 +1,9 @@
-from asyncio.windows_events import NULL
 from django.http import HttpResponse
 from django.shortcuts import render 
 import report.gestionCuadroMando as Dashboard 
 import src.app.OptimizationProcess as ML
 import sys
+
 
 
 def Inicio(request):
@@ -15,18 +15,17 @@ def CargaDataset(request):
     return render(request,"carga.html")
 
 def CargaCompletada(request):
-    if request.FILES["files"]:
-        cond = True
-        while(cond):
-            cond = Dashboard.CrearCuadroMando(request.FILES["files"])
-        opt = ML.Optimizar(request.FILES["files"])
-        if opt == NULL:
-            mensaje = "Cargado con exito, ya puede crear la plantilla del cuadro de mando"
+    if request.method == "POST":
+        archivo = request.FILES['document']
+        nombre = request.FILES['document'].name
+        if archivo:
+            mensaje ="Cargado con exito, ya puede crear la plantilla del cuadro de mando"
         else:
-            mensaje = "Archivo no valido, revise su contenido"
+            mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
+    global nombreArchivo
+    nombreArchivo = nombre
 
-    return render(request,"cargaCompleta.html",{"msg":mensaje})
-
+    return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):
 
@@ -37,8 +36,12 @@ def Estadisticas(request):
     return render(request,"estadisticas.html")
 
 def PlantillaPowerBi(request):
-
-    return HttpResponse(Dashboard.CrearCuadroMando())    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
+    exito =Dashboard.CrearCuadroMando(nombreArchivo)
+    if exito:
+        mensaje ='Plantilla creada con exito, ya puedes usar todas las funciones'
+    else:
+        mensaje = 'Ha habido un error'
+    return render(request,"cargaCompleta.html",{'msg':mensaje})    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
 
 def ConsultarDashboard(request):
 
@@ -51,4 +54,5 @@ def CerrarPrograma(request):
 def OptimizarDataset(request):
 
     return render (request,"optimizacion.html")
-    
+
+nombreArchivo = ""

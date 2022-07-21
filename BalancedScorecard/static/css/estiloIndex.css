@@ -34,15 +34,6 @@ body{
     color: #fff;
 }
 
-body.dark{
-    --body-color: #18191a;
-    --sidebar-color: #242526;
-    --primary-color: #3a3b3c;
-    --primary-color-light: #3a3b3c;
-    --toggle-color: #fff;
-    --text-color: #ccc;
-}
-
 /* ===== Sidebar ===== */
  .sidebar{
     position: fixed;
@@ -278,9 +269,6 @@ body.dark .mode .sun-moon i.moon{
     transition: var(--tran-04);
 }
 
-body.dark .switch::before{
-    left: 20px;
-}
 
 .home{
     position: absolute;
@@ -304,7 +292,5 @@ body.dark .switch::before{
     height: 100vh;
     width: calc(100% - 78px);
 }
-body.dark .home .text{
-    color: var(--text-color);
-}
+
 

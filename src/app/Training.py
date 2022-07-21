@@ -1,5 +1,6 @@
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, SGDRegressor, ElasticNet
+from src.app import Evaluate
 
 
 # Ahora entrenamos nuestro modelo, pero para datos reales en lugar de usar samples
