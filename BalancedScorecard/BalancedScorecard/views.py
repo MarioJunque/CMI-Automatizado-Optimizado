@@ -35,13 +35,6 @@ def Estadisticas(request):
     global activo 
     return render(request,"estadisticas.html",{'activo':activo})
 
-def PlantillaPowerBi(request):
-    exito =Dashboard.CrearCuadroMando()
-    if exito:
-        mensaje ='Plantilla creada con exito, ya puedes usar todas las funciones'
-    else:
-        mensaje = 'Ha habido un error'
-    return render(request,"cargaCompleta.html",{'msg':mensaje})    # Abre PowerBI para crear la plantilla del cuadro de mando que se va a usar
 
 def ConsultarDashboard(request):
 
@@ -50,10 +43,6 @@ def ConsultarDashboard(request):
 def CerrarPrograma(request):
 
     return HttpResponse("Cerrando el programa ...",sys.exit(0))    # Aqui hay que implementar un método para cerrar con un wait o algo parecido
-
-def OptimizarDataset(request):
-
-    return render (request,"optimizacion.html")
 
 nombreArchivo = ""
 activo = False
