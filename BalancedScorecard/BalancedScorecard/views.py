@@ -28,15 +28,15 @@ def CargaCompletada(request):
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):
-
-    return render(request,"descarga.html")
+    global activo  
+    return render(request,"descarga.html",{'activo':activo})
 
 def Estadisticas(request):
-
-    return render(request,"estadisticas.html")
+    global activo 
+    return render(request,"estadisticas.html",{'activo':activo})
 
 def PlantillaPowerBi(request):
-    exito =Dashboard.CrearCuadroMando(nombreArchivo)
+    exito =Dashboard.CrearCuadroMando()
     if exito:
         mensaje ='Plantilla creada con exito, ya puedes usar todas las funciones'
     else:
@@ -56,3 +56,4 @@ def OptimizarDataset(request):
     return render (request,"optimizacion.html")
 
 nombreArchivo = ""
+activo = False

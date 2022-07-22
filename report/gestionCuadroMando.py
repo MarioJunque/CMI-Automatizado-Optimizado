@@ -1,14 +1,12 @@
-import os, subprocess
+import subprocess
 
-CUADRO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CUADRO_DIR = "cd..\\..\\report\\plantilla.pbix"
 
-def CrearCuadroMando(nombre):
-    new_nombre = nombre.replace('csv' or "xlsx",'')
-    archivo = new_nombre + ".pbix"
-    with open(archivo, 'r'):
-        pass
-    subprocess.run(CUADRO_DIR + archivo, shell = True)
+def CrearCuadroMando():
+    cadena = "C:\\Users\\mario\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.MicrosoftPowerBIDesktop_8wekyb3d8bbwe\\PBIDesktopStore.exe"
+    #path = cadena.replace( "\",'\\')
+    subprocess.run(cadena , shell = True)
+    return True
 
-
-def VisualizarCuadroMando(archivo):
-     subprocess.run(CUADRO_DIR + archivo, shell = True)
+def VisualizarCuadroMando():
+     subprocess.run(CUADRO_DIR , shell = True)

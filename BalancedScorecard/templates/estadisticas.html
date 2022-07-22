@@ -2,4 +2,16 @@
 
 {% block title %} Estadísticas del modelo {% endblock %}
 
-{% block content %} {% endblock %}
+{% block content %}
+
+
+{% if activo %}
+
+
+{% else %}
+
+<p>Todavía no tiene acceso a este contenido</p>
+
+{% endif %}
+
+{% endblock %}
