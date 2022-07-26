@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render 
 import report.gestionCuadroMando as Dashboard 
 import src.app.OptimizationProcess as ML
 import sys
+
 
 activo = False
 
@@ -32,6 +33,19 @@ def DescargaDataset(request):
     if activo == True:
         pass
     return render(request,"descarga.html",{'activo':activo})
+
+def ProcesoDescarga(request):
+    file_location = '..\\dataset\\superstore_sales.xlsx'
+    try:    
+        with open(file_location, 'rb') as f:
+           file_data = f.read()
+           response = HttpResponse(file_data, content_type='application/vnd.ms-excel')
+           response['Content-Disposition'] = 'attachment; filename="superstore_sales.xlsx"'
+
+    except IOError:
+        # handle file not exist case here
+        response = HttpResponseNotFound('<h1>File not exist</h1>')
+    return response
 
 def Estadisticas(request):
     global activo
