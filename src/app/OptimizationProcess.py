@@ -1,40 +1,38 @@
-from src.app import DataWrangling
-from src.app import Evaluate
 from src.app import Training
 import pandas as pd
 
-def convertirDataframe(dataset, format):
-    if format == 'csv':
-        archivo = pd.read_csv(dataset, encoding='Latin-1')
-    elif format == 'xlsx':
-        archivo = pd.read_excel(dataset, sheet_name=None)
-    return archivo
-
-def PrepararDatos(dataset,format):
-    df = convertirDataframe(dataset,format)
-    datos = DataWrangling.Limpieza(df)
-    return datos
+tabla_Orders= None
+tabla_Returns= None
+tabla_People= None
+tabla_Final= None
 
 
-def Entrenar(datos):
-    modelo = Training.TrainModelCV(datos)
-    return modelo
+archivoOptimizado = None
+
+def PrepararDatos(dataset):
+    global tabla_Orders, tabla_Returns, tabla_People, tabla_Final
+    tabla_Orders = pd.read_excel(dataset, sheet_name=0, index_col=0)
+    tabla_Returns = pd.read_excel(dataset, sheet_name=1, index_col=0)
+    tabla_People = pd.read_excel(dataset, sheet_name=2, index_col=0)
+    print(tabla_Orders)
 
 
-def Evaluar(modelo):
-     mse,rmse,r2 = Evaluate.evaluacion(modelo)
-     return mse,rmse,r2
-     
+def Entrenar():
+    modelo = Training.TrainModelCV(tabla_Orders[['quantity']].values,tabla_Orders['profit'].values)
+    tabla_Orders["prediccion"] = modelo
+    return True
+    
 
 def Optimizar(df):
-    # datos = PrepararDatos(df)
-    modelo = Entrenar(df)
-    return modelo
+    PrepararDatos(df)
+    proceso = Entrenar()
+    ModelConverter()
+    return proceso
 
-
-def ModelConverter(modelo):
-    if format == 'csv':
-        archivo = modelo.to_csv('optimizacion.csv')
-    elif format == 'xlsx':
-        archivo = modelo.to_excel('optimizacion.xslx')
-    return archivo
+def ModelConverter():
+    df1= None
+    with pd.ExcelWriter("..\\dataset\\superstore_sales.xlsx") as writer:
+        tabla_Orders.to_excel(writer, sheet_name='Orders')
+        tabla_Returns.to_excel(writer, sheet_name='Returns')
+        tabla_People.to_excel(writer, sheet_name='People')
+        writer.save()

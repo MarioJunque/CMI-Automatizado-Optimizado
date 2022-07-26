@@ -4,7 +4,6 @@ import report.gestionCuadroMando as Dashboard
 import src.app.OptimizationProcess as ML
 import sys
 
-nombreArchivo = None
 activo = False
 
 def Inicio(request):
@@ -16,6 +15,7 @@ def CargaDataset(request):
     return render(request,"carga.html")
 
 def CargaCompletada(request):
+    global activo
     if request.method == "POST":
         archivo = request.FILES['document']
         print(archivo.temporary_file_path())
@@ -24,16 +24,13 @@ def CargaCompletada(request):
             mensaje ="Cargado con exito, ya puede crear la plantilla del cuadro de mando"
         else:
             mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
-        ML.Optimizar(contenido)
-    global nombreArchivo
-    nombreArchivo = request.FILES['document'].name
-
+        activo = ML.Optimizar(contenido)
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):
     global activo 
     if activo == True:
-        ML.ModelConverter(nombreArchivo)
+        pass
     return render(request,"descarga.html",{'activo':activo})
 
 def Estadisticas(request):
