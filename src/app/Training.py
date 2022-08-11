@@ -17,18 +17,18 @@ def TrainModelCV (X,Y):
     #Evaluate.evaluacionLin(x_test,y_test,en)
 
     #Predicciones
-    Evaluate.predicciones(x_test,lr)
-    Evaluate.predicciones(x_test,sgd)
-    Evaluate.predicciones(x_test,en)
+    predictLr = Evaluate.predicciones(x_test, lr, y_test)
+    predictSgd = Evaluate.predicciones(x_test, sgd, y_test)
+    predictNet = Evaluate.predicciones(x_test, en, y_test) 
 
-    resultado = Evaluate.eleccion()
+    resultado = str(Evaluate.eleccion())
     elegido = None
-    if resultado == 'lr':
-         elegido = lr
-    elif resultado == "sgd":
-         elegido= sgd
-    elif resultado == "en":
-        elegido = en
+    if resultado == 'LinearRegression()':
+         elegido =  predictLr
+    elif resultado == "SGDRegressor()":
+         elegido = predictSgd 
+    elif resultado == "ElasticNet()":
+        elegido =  predictNet
     return elegido
 
 def LinRegression(x_train,y_train):                     # Entrena usando regresión linear
