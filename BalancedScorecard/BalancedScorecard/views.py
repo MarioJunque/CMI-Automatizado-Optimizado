@@ -19,13 +19,11 @@ def CargaCompletada(request):
     global activo
     if request.method == "POST":
         archivo = request.FILES['document']
-        print(archivo.temporary_file_path())
-        contenido = request.FILES['document'].read()
         if archivo:
             mensaje ="Cargado con exito, ya puede crear la plantilla del cuadro de mando"
         else:
             mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
-        activo = ML.Optimizar(contenido)
+        activo = ML.Optimizar(archivo)
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):
@@ -35,12 +33,12 @@ def DescargaDataset(request):
     return render(request,"descarga.html",{'activo':activo})
 
 def ProcesoDescarga(request):
-    file_location = '..\\dataset\\superstore_sales.xlsx'
+    file_location = '..\\dataset\\superstore.csv'
     try:    
         with open(file_location, 'rb') as f:
            file_data = f.read()
-           response = HttpResponse(file_data, content_type='application/vnd.ms-excel')
-           response['Content-Disposition'] = 'attachment; filename="superstore_sales.xlsx"'
+           response = HttpResponse(file_data, content_type='text/csv')
+           response['Content-Disposition'] = 'attachment; filename="superstore.csv"'
 
     except IOError:
         # handle file not exist case here
