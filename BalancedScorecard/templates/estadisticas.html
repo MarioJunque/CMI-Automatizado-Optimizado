@@ -7,6 +7,27 @@
 
 {% if activo %}
 
+<p> Las medidas del modelos son: </p>
+
+<ul>
+{% for key,medida in stats.items %}
+
+&nbsp
+
+<li><i><strong>{{key}}:&nbsp;&nbsp;&nbsp</i></strong> {{medida}} </li>
+
+{% endfor %}
+</ul>
+
+<br>
+<p>¿ Y estas medidas que representan ?, a continuación se hará una breve explicación para el usuario</p>
+
+<p>R2:</p>
+<p>mean square error(mse):</p>
+<p>root mean square error(rmse):</p>
+
+
+
 
 {% else %}
 

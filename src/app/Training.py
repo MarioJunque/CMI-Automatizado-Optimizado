@@ -2,7 +2,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, SGDRegressor, ElasticNet
 from src.app import Evaluate
 
-
 # Ahora entrenamos nuestro modelo, pero para datos reales en lugar de usar samples
 
 def TrainModelCV (X,Y):
@@ -24,12 +23,17 @@ def TrainModelCV (X,Y):
     resultado = str(Evaluate.eleccion())
     elegido = None
     if resultado == 'LinearRegression()':
-         elegido =  predictLr
+        elegido =  predictLr
+        modeloElegido = lr
     elif resultado == "SGDRegressor()":
-         elegido = predictSgd 
+        elegido = predictSgd
+        modeloElegido = sgd
     elif resultado == "ElasticNet()":
         elegido =  predictNet
-    return elegido
+        modeloElegido = en
+    informe = Evaluate.report(x_test, y_test, modeloElegido)
+    print(informe)
+    return elegido, informe
 
 def LinRegression(x_train,y_train):                     # Entrena usando regresión linear
     modelo = LinearRegression().fit(x_train,y_train)

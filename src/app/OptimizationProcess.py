@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 data = None
-
+informe = None
 
 
 archivoOptimizado = None
@@ -16,7 +16,8 @@ def PrepararDatos(dataset):
    
 
 def Entrenar():
-    modelo = Training.TrainModelCV(data[['Quantity','Sales','Discount']].values,data['Profit'].values)
+    global informe
+    modelo, informe = Training.TrainModelCV(data[['Quantity','Sales','Discount']].values,data['Profit'].values)
     data[['prediccion']] = pd.DataFrame(modelo)
     print ( data[['prediccion']])
     #data['prediccion'] = tabla_Orders["prediccion"].fillna(0)
@@ -35,4 +36,5 @@ def ModelConverter():
         
 
 def obtenerEstadisticas():
-    pass
+    resultado = informe
+    return resultado

@@ -48,8 +48,8 @@ def ProcesoDescarga(request):
 def Estadisticas(request):
     global activo
     if activo == True:
-        ML.obtenerEstadisticas() 
-    return render(request,"estadisticas.html",{'activo':activo})
+        stats = ML.obtenerEstadisticas() 
+    return render(request,"estadisticas.html",{'activo':activo, 'stats':stats})
 
 
 def ConsultarDashboard(request):

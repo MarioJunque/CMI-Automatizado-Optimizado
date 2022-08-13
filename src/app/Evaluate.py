@@ -25,11 +25,17 @@ def eleccion():
 def predicciones(x_test,mod,y_test):
     prediction = mod.predict(x_test)
     dictPredictions[mod] = prediction
-    #mse = mean_squared_error(y_test, predictions)
-    #rmse = np.sqrt(mse)
     r2 = r2_score(y_test, prediction)
     dictR2[mod]= r2
     return prediction
+
+def report(x_test, y_test, modelo):
+    prediction = modelo.predict(x_test)
+    r2 = r2_score(y_test, prediction)
+    mse = mean_squared_error(y_test, prediction)
+    rmse = np.sqrt(mse)
+    informe = {'mse':mse, 'rmse': rmse, 'r2': r2}
+    return informe
     
 
 
