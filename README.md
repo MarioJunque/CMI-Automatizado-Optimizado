@@ -33,9 +33,13 @@ pip install setuptools
 Las versiones utilizadas para este proyecto han sido:
 
 numpy 1.19.5
+
 pandas 1.4.2
+
 Django 4.0.5
+
 sckit-learn 1.1.1
+
 setuptools 62.3.2
 
 
@@ -56,11 +60,11 @@ Una vez realizada la instalación de estos paquetes el usuario ya puede usar en 
 
 CONDICIONES DE LA FUENTE DE DATOS
 
-El usuario deberá de suministrar un archivo CSV con el siguiente formato de campos:
+El usuario deberá de suministrar un archivo CSV separados por comas los valores tendría el siguiente formato de campos:
 
 Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name,Sales,Quantity,Discount,Profit
 
-Un ejemplo de los valores que tiene cada campo sería el siguiente:
+Un ejemplo de una columna de valores que tendría cada campo sería el siguiente:
 
 49,CA-2016-169194,20-06-16,25-06-16,Standard Class,LH-16900,Lena Hernandez,Consumer,United States,Dover,Delaware,19901,East,TEC-PH-10003988,Technology,Phones,"LF Elite 3D Dazzle Designer Hard Case Cover, Lf Stylus Pen and Wiper For Apple Iphone 5c Mini Lite",21.8,2,0,6.104
 
