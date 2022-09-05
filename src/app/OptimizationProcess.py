@@ -1,12 +1,8 @@
 from src.app import Training
-import numpy as np
 import pandas as pd
 
 data = None
 informe = None
-
-
-archivoOptimizado = None
 
 def PrepararDatos(dataset):
     global data
@@ -18,7 +14,7 @@ def PrepararDatos(dataset):
 def Entrenar():
     global informe
     modelo, informe = Training.TrainModelCV(data[['Quantity','Sales','Discount']].values,data['Profit'].values)
-    data[['prediccion']] = pd.DataFrame(modelo)
+    data['prediccion'] = modelo
     print ( data[['prediccion']])
     #data['prediccion'] = tabla_Orders["prediccion"].fillna(0)
     return True
@@ -31,10 +27,10 @@ def Optimizar(df):
     return proceso
 
 def ModelConverter():
-     data.to_csv("..\\dataset\\superstore.csv")
+     data.to_csv("..\\dataset\\superstore.csv", index=False)
 
         
 
-def obtenerEstadisticas():
+def ObtenerEstadisticas():
     resultado = informe
     return resultado

@@ -16,22 +16,22 @@ def TrainModelCV (X,Y):
     #Evaluate.evaluacionLin(x_test,y_test,en)
 
     #Predicciones
-    predictLr = Evaluate.predicciones(x_test, lr, y_test)
-    predictSgd = Evaluate.predicciones(x_test, sgd, y_test)
-    predictNet = Evaluate.predicciones(x_test, en, y_test) 
+    Evaluate.Predicciones(x_test, lr, y_test)
+    Evaluate.Predicciones(x_test, sgd, y_test)
+    Evaluate.Predicciones(x_test, en, y_test) 
 
-    resultado = str(Evaluate.eleccion())
+    resultado = str(Evaluate.Eleccion())
     elegido = None
     if resultado == 'LinearRegression()':
-        elegido =  predictLr
+        elegido =  LinRegression(X,Y).predict(X)
         modeloElegido = lr
     elif resultado == "SGDRegressor()":
-        elegido = predictSgd
+        elegido = SGD_Reg(X,Y).predict(X)
         modeloElegido = sgd
     elif resultado == "ElasticNet()":
-        elegido =  predictNet
+        elegido =  Elastic(X,Y).predict(X)
         modeloElegido = en
-    informe = Evaluate.report(x_test, y_test, modeloElegido)
+    informe = Evaluate.Report(x_test, y_test, modeloElegido)
     print(informe)
     return elegido, informe
 

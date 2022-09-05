@@ -20,7 +20,7 @@ def CargaCompletada(request):
     if request.method == "POST":
         archivo = request.FILES['document']
         if archivo:
-            mensaje ="Cargado con exito, ya puede crear la plantilla del cuadro de mando"
+            mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
             mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
         activo = ML.Optimizar(archivo)
@@ -48,14 +48,15 @@ def ProcesoDescarga(request):
 def Estadisticas(request):
     global activo
     if activo == True:
-        stats = ML.obtenerEstadisticas() 
-    return render(request,"estadisticas.html",{'activo':activo, 'stats':stats})
+        stats = ML.ObtenerEstadisticas() 
+        return render(request,"estadisticas.html",{'activo':activo, 'stats':stats})
+    else:
+        return render(request,"estadisticas.html",{'activo':activo})
 
 
 def ConsultarDashboard(request):
     Dashboard.VisualizarCuadroMando()
-
-    return render(request,"cargaCuadro.hmtl")  # Consulta dashboard optimizado 
+    return render(request,"cargaCuadro.html")
 
 def CerrarPrograma(request):
 
