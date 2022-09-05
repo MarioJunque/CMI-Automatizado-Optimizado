@@ -58,6 +58,53 @@ Tutorial setuptools:[Manual de instalación de setuptools](https://pypi.org/proj
 
 Una vez realizada la instalación de estos paquetes el usuario ya puede usar en su sistema la aplicación.
 
+Para descargar en su sistema el repositorio use el siguiente comando en la linea de comandos:
+
+```
+git clone https://github.com/MarioJunque/CMI-Automatizado-Optimizado.git
+```
+
+Una vez descargado dentro de la carpeta con el nombre CMI-Automatizado-Optimizado donde dispondrá ya del proyecto.
+
+A continuación debe de entrar a través de la linea de comando a la carpeta del proyecto usando el siguiente comando:
+
+```
+cd [Ruta a la carpeta del repositorio en su sistema]
+```
+
+Una vez dentro deberá de ejecutar el siguiente comando para instalar el proyecto:
+
+```
+python setup.py sdist --formats=zip
+```
+Se generará una carpeta con el nombre dist, para entrar en ella usar:
+
+```
+cd dist
+```
+
+y dentro de esta introducir el comando:
+
+```
+pip install paq_CMI-Automatizado-Optimizado-1.0.zip
+```
+
+De esta manera ya tendrá listo el proyecto para usar, deberá entrar a la linea de comandos a la carpeta BalancedScorecard:
+
+```
+cd [Ruta a la carpeta BalancedScorecard del repositorio]
+```
+
+Y ejecutar por último el comando que funciona exclusivamente en esta carpeta:
+
+```
+ python manage.py runserver
+```
+
+Este último comando deberá de usarlo siempre que quiera iniciar la aplicación
+
+Para poder acceder a ella introduzca en el siguiente enlace en el navegador que desee: `127.0.0.1/home`
+
 CONDICIONES DE LA FUENTE DE DATOS
 
 El usuario deberá de suministrar un archivo CSV separados por comas los valores tendría el siguiente formato de campos:
