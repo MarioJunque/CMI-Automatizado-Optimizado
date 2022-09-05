@@ -41,11 +41,15 @@ setuptools 62.3.2
 
 Puede encontrar también sus correspondientes tutoriales de instalación en los siguientes enlaces:
 
-[Manual de instalación de Numpy](https://numpy.org/install/).
-[Manual de instalación de Pandas](https://pandas.pydata.org/docs/getting_started/install.html).
-[Manual de instalación de Django](https://docs.djangoproject.com/en/4.1/topics/install/).
-[Manual de instalación de scikit-learn](https://scikit-learn.org/stable/install.html).
-[Manual de instalación de setuptools](https://pypi.org/project/setuptools/).
+Tutorial Numpy:[Manual de instalación de Numpy](https://numpy.org/install/).
+
+Tutorial Pandas:[Manual de instalación de Pandas](https://pandas.pydata.org/docs/getting_started/install.html).
+
+Tutorial Django:[Manual de instalación de Django](https://docs.djangoproject.com/en/4.1/topics/install/).
+
+Tutorial scikit-learn:[Manual de instalación de scikit-learn](https://scikit-learn.org/stable/install.html).
+
+Tutorial setuptools:[Manual de instalación de setuptools](https://pypi.org/project/setuptools/).
 
 
 Una vez realizada la instalación de estos paquetes el usuario ya puede usar en su sistema la aplicación.
