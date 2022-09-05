@@ -3,7 +3,14 @@ Este repositorio está dedicado al desarrollo del proyecto para crear una herram
 
 INSTALACIÓN 
 
-Para poder usar la aplicación el usuario necesitará primero instalar Python, se recomienda utilizar la versión 3.8 o superior.
+Esta aplicación solo funciona en sistemas Windows, recomendable que sean con versiones **Windows 10 o superior**.
+
+El usuario deberá de instalar la aplicación Power BI desktop.
+
+Puede descargarla en Microsoft Store o en el siguiente enlace: 
+[Enlace de descarga de Power BI](https://powerbi.microsoft.com/es-es/downloads/).
+
+Para poder usar la aplicación el usuario necesitará tambien instalar Python, se recomienda utilizar la versión 3.8 o superior.
 
 Puede descargarlo en el siguiente enlace: 
 [Enlace de descarga de Python](https://www.python.org/downloads/).
@@ -45,15 +52,15 @@ setuptools 62.3.2
 
 Puede encontrar también sus correspondientes tutoriales de instalación en los siguientes enlaces:
 
-Tutorial Numpy:[Manual de instalación de Numpy](https://numpy.org/install/).
+Tutorial Numpy: [Manual de instalación de Numpy](https://numpy.org/install/).
 
-Tutorial Pandas:[Manual de instalación de Pandas](https://pandas.pydata.org/docs/getting_started/install.html).
+Tutorial Pandas: [Manual de instalación de Pandas](https://pandas.pydata.org/docs/getting_started/install.html).
 
-Tutorial Django:[Manual de instalación de Django](https://docs.djangoproject.com/en/4.1/topics/install/).
+Tutorial Django: [Manual de instalación de Django](https://docs.djangoproject.com/en/4.1/topics/install/).
 
-Tutorial scikit-learn:[Manual de instalación de scikit-learn](https://scikit-learn.org/stable/install.html).
+Tutorial scikit-learn: [Manual de instalación de scikit-learn](https://scikit-learn.org/stable/install.html).
 
-Tutorial setuptools:[Manual de instalación de setuptools](https://pypi.org/project/setuptools/).
+Tutorial setuptools: [Manual de instalación de setuptools](https://pypi.org/project/setuptools/).
 
 
 Una vez realizada la instalación de estos paquetes el usuario ya puede usar en su sistema la aplicación.
@@ -107,7 +114,7 @@ Para poder acceder a ella introduzca en el siguiente enlace en el navegador que 
 
 CONDICIONES DE LA FUENTE DE DATOS
 
-El usuario deberá de suministrar un archivo CSV separados por comas los valores tendría el siguiente formato de campos:
+El usuario deberá de suministrar al sistema un archivo CSV con nombre `superstore.csv` separados por comas los valores tendría el siguiente formato de campos:
 
 Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name,Sales,Quantity,Discount,Profit
 
