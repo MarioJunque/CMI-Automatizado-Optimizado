@@ -118,7 +118,5 @@ El usuario deberá de suministrar al sistema un archivo CSV con nombre `supersto
 
 Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name,Sales,Quantity,Discount,Profit
 
-Un ejemplo de una columna de valores que tendría cada campo sería el siguiente:
-
-49,CA-2016-169194,20-06-16,25-06-16,Standard Class,LH-16900,Lena Hernandez,Consumer,United States,Dover,Delaware,19901,East,TEC-PH-10003988,Technology,Phones,"LF Elite 3D Dazzle Designer Hard Case Cover, Lf Stylus Pen and Wiper For Apple Iphone 5c Mini Lite",21.8,2,0,6.104
+Puede encontrar un ejemplo del archivo en la carpeta `dataset` del repositorio con los distinto valores que pueden tomar los campos, tendrá el mismo nombre que el propuesto anteriormente, es decir, se llama `superstore.csv`.
 
