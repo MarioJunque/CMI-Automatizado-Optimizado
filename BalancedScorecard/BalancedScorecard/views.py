@@ -5,9 +5,11 @@ import src.app.OptimizationProcess as ML
 import sys
 
 
+
+
 activo = False
 
-def Inicio(request):
+def Inicio(request):    # Carga la pantalla de inicio
 
     return render(request,"inicio.html")
 
@@ -15,10 +17,10 @@ def CargaDataset(request):
 
     return render(request,"carga.html")
 
-def CargaCompletada(request):
+def CargaCompletada(request):    # Carga en el sistema el conjunto de datos para procesarlo
     global activo
     if request.method == "POST":
-        archivo = request.FILES['document']
+        archivo = request.FILES.getlist('document')   
         if archivo:
             mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
@@ -26,13 +28,13 @@ def CargaCompletada(request):
         activo = ML.Optimizar(archivo)
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
-def DescargaDataset(request):
+def DescargaDataset(request):  # Pantalla de descarga de archivo
     global activo 
     if activo == True:
         pass
     return render(request,"descarga.html",{'activo':activo})
 
-def ProcesoDescarga(request):
+def ProcesoDescarga(request):   # Inicia el proceso de descarga del archivo optimizado con los nuevos registros de prediccion
     file_location = '..\\dataset\\superstore.csv'
     try:    
         with open(file_location, 'rb') as f:
@@ -45,7 +47,7 @@ def ProcesoDescarga(request):
         response = HttpResponseNotFound('<h1>File not exist</h1>')
     return response
 
-def Estadisticas(request):
+def Estadisticas(request):     # Carga la pantalla de estadísticas
     global activo
     if activo == True:
         stats = ML.ObtenerEstadisticas() 
@@ -54,11 +56,11 @@ def Estadisticas(request):
         return render(request,"estadisticas.html",{'activo':activo})
 
 
-def ConsultarDashboard(request):
+def ConsultarDashboard(request):      # Abre Power BI para ver el CMI
     Dashboard.VisualizarCuadroMando()
     return render(request,"cargaCuadro.html")
 
-def CerrarPrograma(request):
+def CerrarPrograma(request): # Cierra el programa
+    sys.exit(0)
 
-    return HttpResponse("Cerrando el programa ...",sys.exit(0))    # Aqui hay que implementar un método para cerrar con un wait o algo parecido
 
