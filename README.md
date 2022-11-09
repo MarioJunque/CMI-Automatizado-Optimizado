@@ -26,6 +26,10 @@ pip install pandas
 ```
 
 ```
+pip install scipy
+```
+
+```
 py -m pip install Django
 ```
 
@@ -43,6 +47,8 @@ numpy 1.19.5
 
 pandas 1.4.2
 
+Scipy 1.8.1
+
 Django 4.0.5
 
 sckit-learn 1.1.1
@@ -55,6 +61,8 @@ Puede encontrar también sus correspondientes tutoriales de instalación en los 
 Tutorial Numpy: [Manual de instalación de Numpy](https://numpy.org/install/).
 
 Tutorial Pandas: [Manual de instalación de Pandas](https://pandas.pydata.org/docs/getting_started/install.html).
+
+Tutorial Scipy: [Manual de instalación de Scipy](https://scipy.org/install/).
 
 Tutorial Django: [Manual de instalación de Django](https://docs.djangoproject.com/en/4.1/topics/install/).
 
@@ -110,13 +118,13 @@ Y ejecutar por último el comando que funciona exclusivamente en esta carpeta:
 
 Este último comando deberá de usarlo siempre que quiera iniciar la aplicación
 
-Para poder acceder a ella introduzca en el siguiente enlace en el navegador que desee: `127.0.0.1/home`
+Para poder acceder a ella introduzca en el siguiente enlace en el navegador que desee: `127.0.0.1:8000/home`
 
 CONDICIONES DE LA FUENTE DE DATOS
 
-El usuario deberá de suministrar al sistema un archivo CSV con nombre `superstore.csv` separados por comas los valores tendría el siguiente formato de campos:
+El usuario deberá de suministrar al sistema un archivo CSV con nombre `sales.csv` y otro llamado `store_cities.csv`  separados por comas los valores tendría el siguiente formato de campos:
 
-Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name,Sales,Quantity,Discount,Profit
+Los campos de estos dataset los podrá encontrar en : https://www.kaggle.com/code/nhungngo58/retail-sales-insights/data
 
-Puede encontrar un ejemplo del archivo en la carpeta `dataset` del repositorio con los distinto valores que pueden tomar los campos, tendrá el mismo nombre que el propuesto anteriormente, es decir, se llama `superstore.csv`.
+El archivo optimizado de salida conserva el mismo nombre que el introducido en el sistema, es decir, `sales.csv` .
 
