@@ -6,30 +6,20 @@ from scipy import stats
 
 def Preprocesar(df):
     df = LimpiezaDeDatos(df)
-    df = ReducirDimensiones(df)
     df = DateTransform(df)
     df_final = EliminarDuplicados(df)
     return df_final
 
-# Elimina del dataset las dimensiones que no se van a usar para el entrenamiento del modelo
-
-def ReducirDimensiones(df, detect):
-    if detect == 1:
-        df = df.drop(columns=['promo_bin_1','promo_bin_2','promo_discount_2','promo_discount_type_2'])
-    elif detect == 2:
-        pass
-    return df
-
-
 # Elimina o sustituye los valores nulos del dataset
 
 def LimpiezaDeDatos(df):
-    df_numeric = df["SALES","QUANTITYORDERED" "TOTALREVENUE","MSRP","DISCOUNTRATE"]
-    for i in df_numeric:
-        if df_numeric.iloc[i].isnull() == True:
-            media = df.loc[df[i]]
-            df["SALES"].replace("Nan",media)
-
+    df_numeric = df[["sales","price", "revenue", "stock"]]
+    for i in df_numeric.columns:
+        col = df_numeric[i]
+        media = np.mean(col)
+        col.fillna(media, inplace=True)
+        df[i] = col
+        print(df[i])
     return df
 
 # Comprueba si hay registros duplicados, si los hay los elimina
@@ -39,12 +29,12 @@ def EliminarDuplicados(df):
         df.drop_duplicates()
     return df 
 
-# Convierte las fechas en formato object a formato datetime
+# Convierte las fechas en formato object a formato datetime 
 
 def DateTransform(df):
     df[['sales','stock']] = df[['sales','stock']].astype('int')
-    if df['ORDER_DATE'].dtype != 'datetime':
-        df[['ORDER_DATE']] =  pd.to_datetime(df['ORDERDATE'])
+    if df['date'].dtype != 'datetime64':
+        df['date'] =  pd.to_datetime(df['date'])
     return df  
 
 # Elimina posibles outliers que puedan repercutir en el modelo de entrenamiento
