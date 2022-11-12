@@ -20,7 +20,7 @@ def CargaDataset(request):
 def CargaCompletada(request):    # Carga en el sistema el conjunto de datos para procesarlo
     global activo
     if request.method == "POST":
-        archivo = request.FILES.getlist('document')   
+        archivo = request.FILES.getlist('document')
         if archivo:
             mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
