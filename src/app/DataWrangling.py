@@ -29,12 +29,16 @@ def EliminarDuplicados(df):
         df.drop_duplicates()
     return df 
 
-# Convierte las fechas en formato object a formato datetime 
+# Se encarga de realizar las transformaciones necesarias para el correcto funcionamiento del modelo 
 
 def DateTransform(df):
+# Tambien se transforma a enteto las ventas y el stock 
     df[['sales','stock']] = df[['sales','stock']].astype('int')
+
+# Convierte las fechas en formato object a formato datetime 
     if df['date'].dtype != 'datetime64':
         df['date'] =  pd.to_datetime(df['date'])
+
     return df  
 
 # Elimina posibles outliers que puedan repercutir en el modelo de entrenamiento
