@@ -67,13 +67,11 @@ def Entrenar():
 def ModelConverter():
     global data_sales,data_store
     data_sales.to_csv("..\\dataset\\sales.csv", index=False)     # , encoding='utf-8-sig'
-    data_store.to_csv("..\\dataset\\store_cities.csv", index=False)    # , encoding='utf-8-sig'
 
     # Comprime los archivos para que ocupen menos
 
     with ZipFile('sales.zip', 'w') as myzip:
         myzip.write('sales.csv')
-        myzip.write('store_cities.csv')
 
 # Prepara los datos para el informe de estadísticas en la aplicación 
 
