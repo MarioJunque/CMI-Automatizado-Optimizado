@@ -3,11 +3,8 @@
 
 from src.app import Training
 from src.app import DataWrangling
-from zipfile import ZipFile
-from sklearn.preprocessing import OneHotEncoder
-import pandas as pd
 import numpy as np
-import random 
+import pandas as pd
 
 # Definición de variables globales
 
@@ -17,7 +14,6 @@ data_store = None
 data = None
 df_tam_pred = None
 informe = None
-
 
 # Ejecucion el proceso de optimización
 
@@ -43,21 +39,21 @@ def PrepararDatos(dataset):
     
     data = pd.merge(df_sales_final,data_store, on=['store_id'])     # une tabla sales y store por id de tienda
 
-    df_tam_pred = len(data)    # Guarda el tamaño del dataframe para saber cuantas muestras nuevas generará luego
-
 # Entrena el modelos con los datos preparados   
 
 def Entrenar():
     global informe, data_sales,data, df_tam_pred, df_sales
     # best_products = data['product_id'].value_counts()[:10]
-    sample_products = df_sales.sample(n = 30000, replace=True )   # n = df_tam_pred
+    sample_products = df_sales.sample(n = 30000, replace=True ) 
 
     # Aqui se obtienen los datos de la predicción y las métricas del algoritmo escogido
     modelo, informe = Training.TrainModelCV(data[['sales','price']].values,data['revenue'].values)
 
+    modelo = np.round(modelo,2)
+
     # Copia de las predicciones en nuevos registros
     
-    tam = 2
+    tam = 20
     # tam = len(modelo)
     while tam:
         print('modelo:',tam,'sample:',len(sample_products))
@@ -72,8 +68,6 @@ def Entrenar():
         tam-=1
     
     print(df_sales.tail())
-    
-
 
     return True
 
@@ -81,12 +75,7 @@ def Entrenar():
 
 def ModelConverter():
     global df_sales
-    df_sales.to_csv("..\\dataset\\sales.csv", index=False)     # , encoding='utf-8-sig'
-
-    # Comprime los archivos para que ocupen menos
-
-    #with ZipFile('sales.zip', 'w') as myzip:
-    #    myzip.write('..\dataset\sales.csv"')
+    df_sales.to_csv("..\\dataset\\sales.csv", index=False, float_format='%.2f')     # , encoding='utf-8-sig'
 
 # Prepara los datos para el informe de estadísticas en la aplicación 
 
