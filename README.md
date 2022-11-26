@@ -124,7 +124,7 @@ CONDICIONES DE LA FUENTE DE DATOS
 
 El usuario deberá de suministrar al sistema un archivo CSV con nombre `sales.csv` y otro llamado `store_cities.csv`  separados por comas los valores tendría el siguiente formato de campos:
 
-Los campos de estos dataset los podrá encontrar en : https://www.kaggle.com/code/nhungngo58/retail-sales-insights/data
+Los campos de estos dataset los podrá encontrar en : https://www.kaggle.com/datasets/berkayalan/retail-sales-data
 
-El archivo optimizado de salida conserva el mismo nombre que el introducido en el sistema, es decir, `sales.csv` .
+El archivo optimizado de salida y en el que se van a introducir los cambios conserva el mismo nombre que el introducido en el sistema, es decir, `sales.csv` .
 
