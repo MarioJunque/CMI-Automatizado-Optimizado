@@ -5,9 +5,10 @@ from scipy import stats
 # Coordina el proceso de Limpieza de datos del dataset
 
 def Preprocesar(df):
+    df_final = FiltroDeOutliers(df)
     df = LimpiezaDeDatos(df)
-    df = DateTransform(df)
-    df_final = EliminarDuplicados(df)
+    df = EliminarDuplicados(df)
+    df_final = DateTransform(df)
     return df_final
 
 # Elimina o sustituye los valores nulos del dataset
@@ -17,6 +18,7 @@ def LimpiezaDeDatos(df):
     for i in df_numeric.columns:
         col = df_numeric[i]
         media = np.mean(col)
+        media = np.round(media,2)
         col.fillna(media, inplace=True)
         df[i] = col
         print(df[i])
@@ -44,7 +46,8 @@ def DateTransform(df):
 # Elimina posibles outliers que puedan repercutir en el modelo de entrenamiento
 
 def FiltroDeOutliers(df):
-    df[(np.abs(stats.zscore(df)) < 3).all(axis=1)]
+    numeric = ["sales","price", "revenue", "stock"]
+    df = df[(np.abs(stats.zscore(df[numeric])) < 3).all(axis=1)]
 
     #df[(np.abs(stats.zscore(df[0]) <3))]
     return df
