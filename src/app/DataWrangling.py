@@ -7,8 +7,8 @@ from scipy import stats
 def Preprocesar(df):
     df_final = FiltroDeOutliers(df)
     df = LimpiezaDeDatos(df)
-    df = EliminarDuplicados(df)
-    df_final = DateTransform(df)
+    df_final = EliminarDuplicados(df)
+    #df_final = DateTransform(df)
     return df_final
 
 # Elimina o sustituye los valores nulos del dataset
@@ -21,7 +21,6 @@ def LimpiezaDeDatos(df):
         media = np.round(media,2)
         col.fillna(media, inplace=True)
         df[i] = col
-        print(df[i])
     return df
 
 # Comprueba si hay registros duplicados, si los hay los elimina
