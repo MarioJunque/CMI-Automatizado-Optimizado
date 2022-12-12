@@ -14,15 +14,17 @@ def Eleccion():
 def Predicciones(mod,datos_test):
     steps = 90
     prediction = mod.predict(steps=steps)
+    print(prediction)
     dictPredictions[mod] = prediction
-    r2 = r2_score(datos_test, prediction)
+    r2 = r2_score(datos_test['revenue'], prediction)
     dictR2[mod]= r2
     return prediction
 
-def Report(datos_test, modelo):
-    prediction = modelo.predict(datos_test)
-    r2 = r2_score(datos_test, prediction)
-    mse = mean_squared_error(datos_test, prediction)
+def Report(datos, modelo):
+    steps = 90
+    prediction = modelo.predict(steps=steps)
+    r2 = r2_score(datos['revenue'], prediction)
+    mse = mean_squared_error(datos['revenue'], prediction)
     rmse = np.sqrt(mse)
     informe = {'mse':mse, 'rmse': rmse, 'r2': r2}
     return informe

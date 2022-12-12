@@ -1,34 +1,50 @@
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression, SGDRegressor, ElasticNet
 
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
-from skforecast.ForecasterAutoregCustom import ForecasterAutoregCustom
-from skforecast.ForecasterAutoregDirect import ForecasterAutoregDirect
 from skforecast.model_selection import grid_search_forecaster
 from skforecast.model_selection import backtesting_forecaster
+from skforecast.utils import load_forecaster
+from skforecast.utils import save_forecaster
+
 
 from src.app import Evaluate
+import os
 
 # Ahora entrenamos nuestro modelo, pero para datos reales en lugar de usar samples
 
 def TrainModel (datos):
-    print(datos)  
-
+    
+    print(len(datos))
     steps = 90
-    datos_train = datos[:-steps]
-    datos_test  = datos[-steps:]
-    # Crear y entrenar forecaster autoregresivo recursivo
-    # ==============================================================================
-    forecaster = ForecasterAutoreg(
-                 regressor = RandomForestRegressor(random_state=123),
-                 lags = 6
-             )
+    print(datos)
+    datos_train = datos[:steps]
+    datos_test  = datos[steps:]
 
-    forecaster = forecaster.fit(y=datos_train['revenue'])
+
+    if os.path.exists('../src/app/forecaster.py') == True:
+        forecaster= load_forecaster('..\\src\\app\\forecaster.py', verbose=True)
+        print('Forecaster cargado')
+        newpred =forecaster.predict(steps=3)
+        print('New prediction')
+        print(newpred)
+    else:
+        # Crear y entrenar forecaster autoregresivo recursivo
+        # ==============================================================================
+        forecaster = ForecasterAutoreg(
+                    regressor = RandomForestRegressor(random_state=123),
+                    lags = 15
+                )
+
+    forecaster.fit(y=datos_train['revenue'])
 
     elegido = Evaluate.Predicciones(forecaster, datos_test)
-    informe = Evaluate.Report(datos_test, elegido)
+
+    ajustar(forecaster, datos_train)
+
+    informe = Evaluate.Report(datos_test, forecaster)
+
+
+    guardarModelo(forecaster)
 
     return elegido, informe
 
@@ -36,23 +52,6 @@ def TrainModel (datos):
 #    lr =LinRegression(x_train,y_train)    
 #    sgd = SGD_Reg(x_train,y_train)
 #    en = Elastic(x_train,y_train)
-
-
-
-#--------------------------------------------------------------------------------------------------
-
-# Crear y entrenar forecaster
-# ==============================================================================
-#forecaster = ForecasterAutoreg(
-#               regressor = RandomForestRegressor(random_state=123),
-#               lags      = 8
-#            )
-
-#forecaster.fit(y=datos_train['y'], exog=datos_train['exog_1'])
-
-#--------------------------------------------------------------------------------------------------
-
-
 
     #Predicciones
 #    Evaluate.Predicciones(x_test, lr, y_test)
@@ -86,3 +85,38 @@ def TrainModel (datos):
 # def Elastic(x_train,y_train):                           # Entrena usando algoritmo Elastic Net
 #     modelo = ElasticNet().fit(x_train,y_train)
 #     return modelo 
+
+# Este método guarda el modelo para que se pueda volver a usar posteriormente
+
+
+def ajustar(forecaster, datos_train):
+    steps = 36
+    forecaster = ForecasterAutoreg(
+                    regressor = RandomForestRegressor(random_state=123),
+                    lags      = 12 # Este valor será remplazado en el grid search
+                )
+
+    # Lags utilizados como predictoresnkj
+    lags_grid = [10, 20]
+
+    # Hiperparámetros del regresor
+    param_grid = {'n_estimators': [100, 500],
+                'max_depth': [3, 5, 10]}
+
+    resultados_grid = grid_search_forecaster(
+                            forecaster         = forecaster,
+                            y                  = datos_train['y'],
+                            param_grid         = param_grid,
+                            lags_grid          = lags_grid,
+                            steps              = steps,
+                            refit              = True,
+                            metric             = 'mean_squared_error',
+                            initial_train_size = int(len(datos_train)*0.5),
+                            fixed_train_size   = False,
+                            return_best        = True,
+                            verbose            = False
+                    )
+    print(resultados_grid)
+
+def guardarModelo(modelo):
+    save_forecaster(modelo, file_name='..\\src\\app\\forecaster.py', verbose=False)

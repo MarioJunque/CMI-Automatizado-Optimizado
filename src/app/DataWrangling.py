@@ -5,8 +5,9 @@ from scipy import stats
 # Coordina el proceso de Limpieza de datos del dataset
 
 def Preprocesar(df):
-    df_final = FiltroDeOutliers(df)
+    #df = FiltroDeOutliers(df)
     df = LimpiezaDeDatos(df)
+    df = FeatureEngineering(df)
     df_final = EliminarDuplicados(df)
     #df_final = DateTransform(df)
     return df_final
@@ -33,14 +34,17 @@ def EliminarDuplicados(df):
 # Se encarga de realizar las transformaciones necesarias para el correcto funcionamiento del modelo 
 
 def DateTransform(df):
-# Tambien se transforma a enteto las ventas y el stock 
-    df[['sales','stock']] = df[['sales','stock']].astype('int')
 
 # Convierte las fechas en formato object a formato datetime 
     if df['date'].dtype != 'datetime64':
         df['date'] =  pd.to_datetime(df['date'])
 
     return df  
+
+def FeatureEngineering(df):
+    # Tambien se transforma a enteto las ventas y el stock 
+    df[['sales','stock']] = df[['sales','stock']].astype('int')
+    return df
 
 # Elimina posibles outliers que puedan repercutir en el modelo de entrenamiento
 
