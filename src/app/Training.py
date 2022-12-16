@@ -17,8 +17,8 @@ def TrainModel (datos):
     print(len(datos))
     steps = 90
     print(datos)
-    datos_train = datos[:steps]
-    datos_test  = datos[steps:]
+    datos_train = datos[:-steps]
+    datos_test  = datos[-steps:]
 
 
     if os.path.exists('../src/app/forecaster.py') == True:
@@ -31,8 +31,8 @@ def TrainModel (datos):
         # Crear y entrenar forecaster autoregresivo recursivo
         # ==============================================================================
         forecaster = ForecasterAutoreg(
-                    regressor = RandomForestRegressor(random_state=123),
-                    lags = 15
+                    regressor = RandomForestRegressor(max_depth=5, n_estimators=500,random_state=123),
+                    lags = 20
                 )
 
     forecaster.fit(y=datos_train['revenue'])
@@ -105,7 +105,7 @@ def ajustar(forecaster, datos_train):
 
     resultados_grid = grid_search_forecaster(
                             forecaster         = forecaster,
-                            y                  = datos_train['y'],
+                            y                  = datos_train['revenue'],
                             param_grid         = param_grid,
                             lags_grid          = lags_grid,
                             steps              = steps,
