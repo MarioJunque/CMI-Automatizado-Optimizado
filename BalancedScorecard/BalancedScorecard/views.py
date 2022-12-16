@@ -20,7 +20,8 @@ def CargaDataset(request):
 def CargaCompletada(request):    # Carga en el sistema el conjunto de datos para procesarlo
     global activo
     if request.method == "POST":
-        archivo = request.FILES.getlist('document')
+        archivo = request.FILES['document']
+        print(archivo)
         if archivo:
             mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
@@ -40,7 +41,7 @@ def ProcesoDescarga(request):   # Inicia el proceso de descarga del archivo opti
         with open(file_location, 'rb') as f:
            file_data = f.read()
            response = HttpResponse(file_data, content_type='text/csv')
-           response['Content-Disposition'] = 'attachment; filename="superstore.csv"'
+           response['Content-Disposition'] = 'attachment; filename="sales.csv"'
 
     except IOError:
         # handle file not exist case here
