@@ -24,9 +24,9 @@ def TrainModel (datos):
     if os.path.exists('../src/app/forecaster.py') == True:
         forecaster= load_forecaster('..\\src\\app\\forecaster.py', verbose=True)
         print('Forecaster cargado')
-        newpred =forecaster.predict(steps=3)
+        prediccion = forecaster.predict(steps=90, last_window=datos['revenue'].tail(20))
         print('New prediction')
-        print(newpred)
+        print(prediccion)
     else:
         # Crear y entrenar forecaster autoregresivo recursivo
         # ==============================================================================
@@ -35,18 +35,20 @@ def TrainModel (datos):
                     lags = 20
                 )
 
-    forecaster.fit(y=datos_train['revenue'])
+        forecaster.fit(y=datos_train['revenue'])
 
-    elegido = Evaluate.Predicciones(forecaster, datos_test)
+        elegido = Evaluate.Predicciones(forecaster, datos_test)
 
-    ajustar(forecaster, datos_train)
+        #ajustar(forecaster, datos_train)
+
+        prediccion = forecaster.predict(steps=90, last_window=datos['revenue'].tail(20))
 
     informe = Evaluate.Report(datos_test, forecaster)
 
-
+    # Aqui guardo el modelo actual
     guardarModelo(forecaster)
 
-    return elegido, informe
+    return prediccion, informe
 
 
 #    lr =LinRegression(x_train,y_train)    

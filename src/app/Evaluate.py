@@ -14,7 +14,6 @@ def Eleccion():
 def Predicciones(mod,datos_test):
     steps = 90
     prediction = mod.predict(steps=steps)
-    print(prediction)
     dictPredictions[mod] = prediction
     r2 = r2_score(datos_test['revenue'], prediction)
     dictR2[mod]= r2
