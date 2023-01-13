@@ -52,18 +52,19 @@ def FeatureEngineering(df):
 
 def FiltroDeOutliers(df):
     numeric = ["sales","price", "revenue", "stock"]
+    threshold=3
+    
 
     for i in numeric:
 
         print(df[i].head())
 
-        mean = np.mean(df[i]) 
-        std = np.std(df[i]) 
-        print('La media es:',mean)
-        print('La mediana es:',std)
-        threshold = 3
-        for j in df[i]: 
-            z = (j-mean)/std 
-            if z > threshold:
-                df[i].replace(j,mean)
+        z_scores = (df[i] - df[i].mean()) / df[i].std()
+        # Identitifica las filas que tienen outliers
+
+        outliers = df[(np.abs(z_scores) > threshold)]
+
+        # Quita las filas que tienen outliers del dataframe
+        df = df[~df.index.isin(outliers.index)]
+
     return df
