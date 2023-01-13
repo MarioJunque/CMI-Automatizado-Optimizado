@@ -32,9 +32,10 @@ def PrepararDatos(dataset):
 
     diclist = {"product_id": object,"store_id": object,"date": object, "sales":float, "revenue": float, "stock":float, "price":float,"promo_type_1":object, "promo_bin_1":object,"promo_type_2":object, "promo_bin_2":object, "promo_discount_2":object, "promo_discount_type_2": object }                                        
     data_sales = pd.read_csv(dataset, dtype= diclist, sep= ",")
-    df_copia = data_sales
+    data_sales['predicted'] = 0
+    data_sales['predicted'] = data_sales['predicted'].astype('int64')
+    df_copia = DataWrangling.Preprocesar(data_sales[data_sales['store_id'] == 'S0001'])
     data_sales = DataWrangling.DateTransform(data_sales)
-    data_sales['predicted'] = np.zeros(len(data_sales),dtype=int)
     print(data_sales['predicted'].tail())
     
 
@@ -86,8 +87,8 @@ def Entrenar(df):
         new_row  = df_cols.iloc[i]
         new_row.at['date'] = modelo.index[i]
         new_row['date'] = new_row['date'].strftime('%Y-%m-%d')
-        new_row.at['revenue'] =  modelo[i]
-        new_row.at['predicted'] = np.ones(1,dtype=int)
+        new_row.at['revenue'] =  modelo.iloc[i]
+        new_row.at['predicted'] = int(1)
 
         print(new_row)
 
@@ -98,6 +99,8 @@ def Entrenar(df):
     print(copia)
     
     df_copia_final =pd.concat([df_copia,copia], ignore_index=True)
+
+    print(modelo)
 
     print('últimos registros')
 

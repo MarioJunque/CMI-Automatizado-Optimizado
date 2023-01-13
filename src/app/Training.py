@@ -5,6 +5,8 @@ from skforecast.model_selection import grid_search_forecaster
 from skforecast.model_selection import backtesting_forecaster
 from skforecast.utils import load_forecaster
 from skforecast.utils import save_forecaster
+from sklearn.linear_model import LinearRegression
+
 
 
 from src.app import Evaluate
@@ -13,25 +15,22 @@ import os
 # Ahora entrenamos nuestro modelo, pero para datos reales en lugar de usar samples
 
 def TrainModel (datos):
-    
-    print(len(datos))
-    steps = 90
-    print(datos)
+
+    steps = 365
     datos_train = datos[:-steps]
     datos_test  = datos[-steps:]
-
 
     if os.path.exists('../src/app/forecaster.py') == True:
         forecaster= load_forecaster('..\\src\\app\\forecaster.py', verbose=True)
         print('Forecaster cargado')
-        prediccion = forecaster.predict(steps=90, last_window=datos['revenue'].tail(20))
+        prediccion = forecaster.predict(steps=steps, last_window=datos['revenue'].tail(30))
         print('New prediction')
         print(prediccion)
     else:
         # Crear y entrenar forecaster autoregresivo recursivo
         # ==============================================================================
         forecaster = ForecasterAutoreg(
-                    regressor = RandomForestRegressor(max_depth=5, n_estimators=500,random_state=123),
+                    regressor =  RandomForestRegressor(max_depth=5, n_estimators=500,random_state=123),#LinearRegression(positive=True),
                     lags = 20
                 )
 
@@ -41,7 +40,7 @@ def TrainModel (datos):
 
         #ajustar(forecaster, datos_train)
 
-        prediccion = forecaster.predict(steps=90, last_window=datos['revenue'].tail(20))
+        prediccion = forecaster.predict(steps=180, last_window=datos['revenue'].tail(80))
 
     informe = Evaluate.Report(datos_test, forecaster)
 
@@ -98,7 +97,7 @@ def ajustar(forecaster, datos_train):
                     lags      = 12 # Este valor será remplazado en el grid search
                 )
 
-    # Lags utilizados como predictoresnkj
+    # Lags utilizados como predictores
     lags_grid = [10, 20]
 
     # Hiperparámetros del regresor

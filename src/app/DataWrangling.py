@@ -1,15 +1,15 @@
 import numpy as np
 import pandas as pd
-from scipy import stats
+
 
 # Coordina el proceso de Limpieza de datos del dataset
 
 def Preprocesar(df):
-    #df = FiltroDeOutliers(df)
+    df = EliminarDuplicados(df)
     df = LimpiezaDeDatos(df)
     df = FeatureEngineering(df)
-    df_final = EliminarDuplicados(df)
-    #df_final = DateTransform(df)
+    df_final = FiltroDeOutliers(df)
+
     return df_final
 
 # Elimina o sustituye los valores nulos del dataset
@@ -41,8 +41,10 @@ def DateTransform(df):
 
     return df  
 
+# Transforma a entero las ventas y el stock 
+
 def FeatureEngineering(df):
-    # Tambien se transforma a enteto las ventas y el stock 
+ 
     df[['sales','stock']] = df[['sales','stock']].astype('int')
     return df
 
@@ -50,7 +52,18 @@ def FeatureEngineering(df):
 
 def FiltroDeOutliers(df):
     numeric = ["sales","price", "revenue", "stock"]
-    df = df[(np.abs(stats.zscore(df[numeric])) < 3).all(axis=1)]
 
-    #df[(np.abs(stats.zscore(df[0]) <3))]
+    for i in numeric:
+
+        print(df[i].head())
+
+        mean = np.mean(df[i]) 
+        std = np.std(df[i]) 
+        print('La media es:',mean)
+        print('La mediana es:',std)
+        threshold = 3
+        for j in df[i]: 
+            z = (j-mean)/std 
+            if z > threshold:
+                df[i].replace(j,mean)
     return df
