@@ -20,13 +20,16 @@ def CargaDataset(request):
 def CargaCompletada(request):    # Carga en el sistema el conjunto de datos para procesarlo
     global activo
     if request.method == "POST":
+
         archivo = request.FILES['document']
-        print(archivo)
+        producto = request.POST.get('product', '')
+
+        print('Se ha cargado el archivo',archivo, 'y el producto',producto)
         if archivo:
             mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
             mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
-        activo = ML.Optimizar(archivo)
+        activo = ML.Optimizar(archivo,producto)
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):  # Pantalla de descarga de archivo
@@ -36,7 +39,7 @@ def DescargaDataset(request):  # Pantalla de descarga de archivo
     return render(request,"descarga.html",{'activo':activo})
 
 def ProcesoDescarga(request):   # Inicia el proceso de descarga del archivo optimizado con los nuevos registros de prediccion
-    file_location = '..\\dataset\\superstore.csv'
+    file_location = '..\\dataset\\sales.csv'
     try:    
         with open(file_location, 'rb') as f:
            file_data = f.read()
