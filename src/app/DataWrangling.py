@@ -20,8 +20,8 @@ def LimpiezaDeDatos(df):
         col = df_numeric[i]
         media = np.mean(col)
         media = np.round(media,2)
-        col.fillna(media, inplace=True)
-        df[i] = col
+        df[i].fillna(media,inplace=True)
+        #df[i] = col
     return df
 
 # Comprueba si hay registros duplicados, si los hay los elimina
@@ -56,8 +56,6 @@ def FiltroDeOutliers(df):
     
 
     for i in numeric:
-
-        print(df[i].head())
 
         z_scores = (df[i] - df[i].mean()) / df[i].std()
         # Identitifica las filas que tienen outliers
