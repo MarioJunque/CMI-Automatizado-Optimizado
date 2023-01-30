@@ -17,49 +17,71 @@ df_copia_final = None
 
 # Ejecucion el proceso de optimización
 
-def Optimizar(df):
-    df_prepared = PrepararDatos(df)
+def Optimizar(df, producto):
+    df_prepared = PrepararDatos(df, producto)
     proceso = Entrenar(df_prepared)
     ModelConverter()
     return proceso
 
 # Convierte el dataset en un dataframe para poder manejar la informacion de forma mas sencilla y limpia los datos 
 
-def PrepararDatos(dataset):     
+def PrepararDatos(dataset, producto):     
     global data_sales,data_store,data,df_sales,df_cols, df_copia
 
-   
 
-    diclist = {"product_id": object,"store_id": object,"date": object, "sales":float, "revenue": float, "stock":float, "price":float,"promo_type_1":object, "promo_bin_1":object,"promo_type_2":object, "promo_bin_2":object, "promo_discount_2":object, "promo_discount_type_2": object }                                        
+    diclist = {"product_id": object,"store_id": object,"date": object, "sales":float, "revenue": float, "stock":float, "price":float,"promo_type_1":object, "promo_bin_1":object,"promo_type_2":object, "promo_bin_2":object, "promo_discount_2":object, "promo_discount_type_2": object }  
+
+    # Lectura del dataset y creación del dataframe con los datos
+
+    print("Empezando carga de dataset")
     data_sales = pd.read_csv(dataset, dtype= diclist, sep= ",")
+
+    # Creación de la columna predicted
+
+    print("Creando columna de prediccion")
+
     data_sales['predicted'] = 0
     data_sales['predicted'] = data_sales['predicted'].astype('int64')
-    df_copia = DataWrangling.Preprocesar(data_sales[data_sales['store_id'] == 'S0001'])
-    data_sales = DataWrangling.DateTransform(data_sales)
-    print(data_sales['predicted'].tail())
-    
 
-    moda = data_sales['product_id'].mode().to_list()
-    moda = ' '.join(moda)
-    data_sales = data_sales[data_sales['product_id'] == moda]
+    # Limpieza de la copia del dataset original que se va a mantener
+
+    print("Creando copia del dataset original")
+
+    df_copia = DataWrangling.Preprocesar(data_sales)
+
+    # Transformación de la columna date a datetime 
+
+    print("Convirtiendo fechas")
+
+    data_sales = DataWrangling.DateTransform(data_sales)
+    
+    # Aqui se filtra en el dataset el producto deseado y una de las tiendas
+
+    print("Filtrando producto")
+
+    data_sales = data_sales[data_sales['product_id'] == producto]
     data_sales = data_sales[data_sales['store_id'] == 'S0001']
 
-     # Guarda las columnas para las nuevas predicciones
+    # Guarda las columnas para las nuevas predicciones que se van a generar
 
     df_cols = data_sales[['product_id','store_id','sales','stock','price','promo_type_1','promo_type_2','promo_bin_1','promo_bin_2','promo_discount_2','promo_discount_type_2','date','predicted']]
 
+    # Se realiza el proceso de limpieza en el dataset que solo contiene el producto seleccionado
 
-    data_sales = data_sales.set_index('date')
-    data_sales = data_sales.asfreq('D')
-    data_sales = data_sales.sort_index()
-
-    print(data_sales.head())
+    print("Limpiando datos que se van a utilizar")
 
     df_sales = DataWrangling.Preprocesar(data_sales)
-    print("df despues de data wrangling")
-    print(df_sales.head())
 
+    # Establece la columna fecha como índice de cada fila crea una frecuencia diaria, además de que ordena el índice
+
+    print("Creando serie temporal a partir de columna de fechas")
    
+    df_sales = df_sales.set_index('date')
+    df_sales = df_sales.asfreq('W', fill_value=np.mean(df_sales['revenue']))
+    df_sales = df_sales.sort_index()
+    
+    # Se quitan las columnas innecesarias para entrenar el modelo
+
     df_sales_final = df_sales.drop(columns=['promo_bin_1','promo_bin_2','promo_discount_2','promo_discount_type_2'])
 
     return df_sales_final
@@ -69,19 +91,24 @@ def PrepararDatos(dataset):
 def Entrenar(df):
     global informe,df_sales,df_cols,df_copia,df_copia_final
 
-    # Aqui se obtienen los datos de la predicción y las métricas del algoritmo escogido
+    # Se obtienen los datos de la predicción y las métricas del algoritmo escogido
+
+    print("Comenzando entrenamiento")
+
     modelo, informe = Training.TrainModel(df)
 
+    # Se redondean los resultados obtenidos en el modelo 
     modelo = np.round(modelo,2)
 
-    # Copia de las predicciones en nuevos registros
-    
-    tam = len(modelo)   # esta variable determina el número de registros nuevos a generar 
+    print(modelo)
 
-    i = 0
+    # Copia de las predicciones en nuevos registros
+    # Creación del nuevo dataframe donde se van a copiar las predicciones
 
     copia = pd.DataFrame()
 
+    tam = len(modelo)   # esta variable determina el número de registros nuevos a generar 
+    i = 0
     while tam > i:
         print('modelo:',tam)
         new_row  = df_cols.iloc[i]
@@ -98,21 +125,27 @@ def Entrenar(df):
         i+=1
     print(copia)
     
+    # Unión del dataframe original con el que contiene las predicciones
+
     df_copia_final =pd.concat([df_copia,copia], ignore_index=True)
 
-    print(modelo)
-
-    print('últimos registros')
+    print(' Generando últimos registros')
 
     print(df_copia_final.tail())
 
     return True
 
+
 # Convierte de vuelta a formato csv los archivos usados y se comprimen para reducir el tamaño de archivo
 
 def ModelConverter():
     global df_copia_final
+
+    print("Creando copia con los nuevos datos")
+
     df_copia_final.to_csv("..\\dataset\\sales.csv", index=False, float_format='%.2f')     # , encoding='utf-8-sig'
+
+
 
 # Prepara los datos para el informe de estadísticas en la aplicación 
 

@@ -15,21 +15,19 @@ def Eleccion():
 
 # Función para generar las predicciones 
 
-def Predicciones(mod,datos_test):
-    steps = 365
+def Predicciones(mod,datos_test,steps):
     prediction = mod.predict(steps=steps)
     dictPredictions[mod] = prediction
-    r2 = r2_score(datos_test['revenue'], prediction)
+    r2 = r2_score(datos_test, prediction)
     dictR2[mod]= r2
-    return prediction
+    return prediction,r2
 
 # Función para generar las estadísticas que ve el usuario en la GUI
 
-def Report(datos, modelo):
-    steps = 365
+def Report(datos, modelo,steps):
     prediction = modelo.predict(steps=steps)
-    r2 = r2_score(datos['revenue'], prediction)
-    mse = mean_squared_error(datos['revenue'], prediction)
+    r2 = r2_score(datos, prediction)
+    mse = mean_squared_error(datos, prediction)
     rmse = np.sqrt(mse)
     informe = {'mse':mse, 'rmse': rmse, 'r2': r2}
     return informe
