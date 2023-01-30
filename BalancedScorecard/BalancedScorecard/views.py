@@ -5,8 +5,6 @@ import src.app.OptimizationProcess as ML
 import sys
 
 
-
-
 activo = False
 
 def Inicio(request):    # Carga la pantalla de inicio
@@ -25,11 +23,11 @@ def CargaCompletada(request):    # Carga en el sistema el conjunto de datos para
         producto = request.POST.get('product', '')
 
         print('Se ha cargado el archivo',archivo, 'y el producto',producto)
-        if archivo:
+        activo = ML.Optimizar(archivo,producto)
+        if activo:
             mensaje ="Cargado con exito, ya puede ver los nuevos datos en la plantilla del cuadro de mando"
         else:
-            mensaje = "Archivo no valido, revise su contenido, vuelva a la opcion cargar Dataset"
-        activo = ML.Optimizar(archivo,producto)
+            mensaje = "Datos no validos, revise su contenido, vuelva a pulsar opcion cargar Dataset para reintentarlo"
     return render(request,"cargaCompleta.html",{'msg':mensaje})
 
 def DescargaDataset(request):  # Pantalla de descarga de archivo
