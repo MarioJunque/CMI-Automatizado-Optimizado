@@ -8,8 +8,6 @@ import pandas as pd
 
 # Definición de variables globales
 
-data_store = None
-data = None
 informe = None
 df_cols = None
 df_copia = None
@@ -19,8 +17,9 @@ df_copia_final = None
 
 def Optimizar(df, producto):
     df_prepared = PrepararDatos(df, producto)
-    proceso = Entrenar(df_prepared)
-    ModelConverter()
+    if df_prepared:
+        proceso = Entrenar(df_prepared)
+        ModelConverter()
     return proceso
 
 # Convierte el dataset en un dataframe para poder manejar la informacion de forma mas sencilla y limpia los datos 
@@ -54,13 +53,21 @@ def PrepararDatos(dataset, producto):
     print("Convirtiendo fechas")
 
     data_sales = DataWrangling.DateTransform(data_sales)
-    
+
+    print("Quitando columna de tienda")
+
+    df_sales_final = df_sales.drop(columns=['store_id'])
+  
     # Aqui se filtra en el dataset el producto deseado y una de las tiendas
 
     print("Filtrando producto")
 
     data_sales = data_sales[data_sales['product_id'] == producto]
-    data_sales = data_sales[data_sales['store_id'] == 'S0001']
+
+    cantidad = len(data_sales)
+
+    if cantidad < 720:
+        return False
 
     # Guarda las columnas para las nuevas predicciones que se van a generar
 
@@ -77,7 +84,6 @@ def PrepararDatos(dataset, producto):
     print("Creando serie temporal a partir de columna de fechas")
    
     df_sales = df_sales.set_index('date')
-    df_sales = df_sales.asfreq('W', fill_value=np.mean(df_sales['revenue']))
     df_sales = df_sales.sort_index()
     
     # Se quitan las columnas innecesarias para entrenar el modelo

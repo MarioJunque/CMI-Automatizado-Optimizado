@@ -1,31 +1,20 @@
 from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
-import operator
-
-# Declaración de diccionario que contendrá el R^2 de cada algoritmo y el diccionario con el nombre de cada algoritmo
-
-dictR2={}
-dictPredictions={}
-
-# Función para elegir el mejor algoritmo 
-
-def Eleccion():
-    max_R2 = max(dictR2.items(), key=operator.itemgetter(1))
-    return max_R2[0]
+import pandas as pd
 
 # Función para generar las predicciones 
 
-def Predicciones(mod,datos_test,steps):
-    prediction = mod.predict(steps=steps)
-    dictPredictions[mod] = prediction
+def Predicciones(mod,datos_test):
+    pred = pd.Series(mod.forecast()[0], index = datos_test.index)
+    prediction = np.array(pred)
     r2 = r2_score(datos_test, prediction)
-    dictR2[mod]= r2
     return prediction,r2
 
 # Función para generar las estadísticas que ve el usuario en la GUI
 
-def Report(datos, modelo,steps):
-    prediction = modelo.predict(steps=steps)
+def Report(datos, modelo):
+    pred = pd.Series(modelo.forecast()[0], index = datos.index)
+    prediction = np.array(pred)
     r2 = r2_score(datos, prediction)
     mse = mean_squared_error(datos, prediction)
     rmse = np.sqrt(mse)

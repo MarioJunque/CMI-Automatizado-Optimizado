@@ -51,7 +51,7 @@ def FeatureEngineering(df):
 # Elimina posibles outliers que puedan repercutir en el modelo de entrenamiento
 
 def FiltroDeOutliers(df):
-    numeric = ["sales","price", "revenue", "stock"]
+    numeric = ["sales","price", "stock"]
     threshold=3
     
 
