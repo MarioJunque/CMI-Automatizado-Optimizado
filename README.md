@@ -41,6 +41,10 @@ pip install -U scikit-learn
 pip install setuptools
 ```
 
+```
+pip install stats
+```
+
 Las versiones utilizadas para este proyecto han sido:
 
 numpy 1.19.5
@@ -54,6 +58,8 @@ Django 4.0.5
 sckit-learn 1.1.1
 
 setuptools 62.3.2
+
+Stats 0.1.2a0
 
 
 Puede encontrar también sus correspondientes tutoriales de instalación en los siguientes enlaces:
@@ -110,7 +116,7 @@ De esta manera ya tendrá listo el proyecto para usar, deberá entrar a la linea
 cd [Ruta a la carpeta BalancedScorecard del repositorio]
 ```
 
-Y ejecutar por último el comando que funciona exclusivamente en esta carpeta:
+Y ejecutar por último el comando que funciona exclusivamente en esta carpeta (ejecuta la aplicación):
 
 ```
  python manage.py runserver
@@ -122,9 +128,10 @@ Para poder acceder a ella introduzca en el siguiente enlace en el navegador que 
 
 CONDICIONES DE LA FUENTE DE DATOS
 
-El usuario deberá de suministrar al sistema un archivo CSV con nombre `sales.csv` y otro llamado `store_cities.csv`  separados por comas los valores tendría el siguiente formato de campos:
+El usuario deberá de suministrar al sistema un archivo CSV con nombre `sales.csv`.
 
 Los campos de estos dataset los podrá encontrar en : https://www.kaggle.com/datasets/berkayalan/retail-sales-data
+(Caso de uso con `sales.csv` de esta página de kaggle )
 
 El archivo optimizado de salida y en el que se van a introducir los cambios conserva el mismo nombre que el introducido en el sistema, es decir, `sales.csv` .
 
