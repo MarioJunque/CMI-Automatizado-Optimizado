@@ -15,7 +15,7 @@ def Preprocesar(df):
 # Elimina o sustituye los valores nulos del dataset
 
 def LimpiezaDeDatos(df):
-    df_numeric = df[["sales","price", "revenue", "stock"]]
+    df_numeric = df[["sales","price", "stock"]]
     for i in df_numeric.columns:
         col = df_numeric[i]
         media = np.mean(col)

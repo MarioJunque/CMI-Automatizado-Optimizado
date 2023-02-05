@@ -17,15 +17,15 @@ df_copia_final = None
 
 def Optimizar(df, producto):
     df_prepared = PrepararDatos(df, producto)
-    if df_prepared:
-        proceso = Entrenar(df_prepared)
+    if df_prepared.empty != True:
+        proceso = Entrenar(df_prepared,producto)
         ModelConverter()
     return proceso
 
 # Convierte el dataset en un dataframe para poder manejar la informacion de forma mas sencilla y limpia los datos 
 
 def PrepararDatos(dataset, producto):     
-    global data_sales,data_store,data,df_sales,df_cols, df_copia
+    global data_sales,df_sales,df_cols, df_copia
 
 
     diclist = {"product_id": object,"store_id": object,"date": object, "sales":float, "revenue": float, "stock":float, "price":float,"promo_type_1":object, "promo_bin_1":object,"promo_type_2":object, "promo_bin_2":object, "promo_discount_2":object, "promo_discount_type_2": object }  
@@ -42,10 +42,21 @@ def PrepararDatos(dataset, producto):
     data_sales['predicted'] = 0
     data_sales['predicted'] = data_sales['predicted'].astype('int64')
 
+    # Elimino fechas que no tienen dato (Solo para caso de uso)
+
+    
+    data_sales = DataWrangling.DateTransform(data_sales)
+
+    print("Filtrando fechas en dataset original")
+
+    data_sales = data_sales[data_sales.date < '2019-11-01']             # Elimino fechas sin datos 
+    data_sales['date'] = data_sales['date'].dt.strftime('%Y-%m-%d')     # Vuelvo a convertir en string 
+    
+
     # Limpieza de la copia del dataset original que se va a mantener
 
     print("Creando copia del dataset original")
-
+   
     df_copia = DataWrangling.Preprocesar(data_sales)
 
     # Transformación de la columna date a datetime 
@@ -56,7 +67,7 @@ def PrepararDatos(dataset, producto):
 
     print("Quitando columna de tienda")
 
-    df_sales_final = df_sales.drop(columns=['store_id'])
+    df_sales_final = data_sales.drop(columns=['store_id'])
   
     # Aqui se filtra en el dataset el producto deseado y una de las tiendas
 
@@ -66,8 +77,8 @@ def PrepararDatos(dataset, producto):
 
     cantidad = len(data_sales)
 
-    if cantidad < 720:
-        return False
+    if cantidad < 50:
+        return pd.DataFrame()
 
     # Guarda las columnas para las nuevas predicciones que se van a generar
 
@@ -94,7 +105,7 @@ def PrepararDatos(dataset, producto):
 
 # Entrena el modelos con los datos preparados   
 
-def Entrenar(df):
+def Entrenar(df,producto):
     global informe,df_sales,df_cols,df_copia,df_copia_final
 
     # Se obtienen los datos de la predicción y las métricas del algoritmo escogido
@@ -117,17 +128,16 @@ def Entrenar(df):
     i = 0
     while tam > i:
         print('modelo:',tam)
+        df_cols = df_cols[df_cols['product_id'] == producto]
         new_row  = df_cols.iloc[i]
         new_row.at['date'] = modelo.index[i]
         new_row['date'] = new_row['date'].strftime('%Y-%m-%d')
-        new_row.at['revenue'] =  modelo.iloc[i]
+        new_row.at['revenue'] =  modelo[i]
         new_row.at['predicted'] = int(1)
 
         print(new_row)
 
         copia = copia.append(new_row)
-
-        #df_copia =pd.concat([df_copia,new_row.to_frame().T], ignore_index=True)
         i+=1
     print(copia)
     
