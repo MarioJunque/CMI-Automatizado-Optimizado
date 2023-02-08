@@ -134,6 +134,7 @@ def Entrenar(df,producto):
         new_row['date'] = new_row['date'].strftime('%Y-%m-%d')
         new_row.at['revenue'] =  modelo[i]
         new_row.at['predicted'] = int(1)
+        new_row.at['sales'] = np.round(new_row.revenue/ new_row.price,2)
 
         print(new_row)
 
